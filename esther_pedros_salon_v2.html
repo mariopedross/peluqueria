@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#000000">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Esther Pedrós · Salón de Belleza · Sevilla</title>
@@ -934,13 +932,6 @@ setImgs();
 rCal();
 rGal('Todos');
 rAppts();
-</script>
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
-    .then(() => console.log("PWA activa"))
-    .catch(err => console.log("Error SW:", err));
-}
 </script>
 </body>
 </html>
