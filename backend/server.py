@@ -2,11 +2,13 @@ from fastapi import FastAPI, APIRouter, HTTPException, Depends, Header
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
-import os, logging, uuid, jwt, bcrypt
+import os, logging, uuid, jwt, bcrypt, asyncio
 from pathlib import Path
 from pydantic import BaseModel, Field, EmailStr
 from typing import List, Optional
 from datetime import datetime, timezone, timedelta, date, time
+from twilio.rest import Client as TwilioClient
+from twilio.base.exceptions import TwilioRestException
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -19,6 +21,48 @@ JWT_SECRET = os.environ.get('JWT_SECRET', 'esther-salon-secret-key-change-2026')
 JWT_ALG = "HS256"
 ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'esther@salon.com')
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'Esther2026!')
+
+# ---------- Twilio ----------
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', '')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
+TWILIO_WHATSAPP_FROM = os.environ.get('TWILIO_WHATSAPP_FROM', '')
+OWNER_WHATSAPP_TO = os.environ.get('OWNER_WHATSAPP_TO', '')
+
+_twilio_client = None
+if TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN:
+    try:
+        _twilio_client = TwilioClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+    except Exception as e:
+        logging.error(f"[Twilio] init error: {e}")
+
+def send_owner_whatsapp(appt: dict) -> dict:
+    """Send WhatsApp notification to salon owner. Never raises."""
+    if not _twilio_client or not TWILIO_WHATSAPP_FROM or not OWNER_WHATSAPP_TO:
+        return {"sent": False, "reason": "twilio_not_configured"}
+    body = (
+        f"💇 *Nueva cita - Esther Pedrós*\n\n"
+        f"👤 Cliente: {appt.get('name')}\n"
+        f"📞 Teléfono: {appt.get('phone')}\n"
+        f"✂️ Servicio: {appt.get('service_name')}\n"
+        f"📅 Fecha: {appt.get('date')} a las {appt.get('time')}\n"
+    )
+    notes = (appt.get('notes') or '').strip()
+    if notes:
+        body += f"📝 Notas: {notes}\n"
+    body += f"\nEstado: pendiente de confirmar."
+    try:
+        msg = _twilio_client.messages.create(
+            from_=TWILIO_WHATSAPP_FROM,
+            to=OWNER_WHATSAPP_TO,
+            body=body,
+        )
+        return {"sent": True, "sid": msg.sid}
+    except TwilioRestException as e:
+        logging.error(f"[Twilio] send error: code={e.code} msg={e.msg}")
+        return {"sent": False, "reason": f"twilio_error_{e.code}"}
+    except Exception as e:
+        logging.error(f"[Twilio] unexpected error: {e}")
+        return {"sent": False, "reason": "unexpected_error"}
 
 app = FastAPI(title="Esther Pedrós Salón API")
 api = APIRouter(prefix="/api")
@@ -161,6 +205,9 @@ async def create_appointment(body: AppointmentCreate):
     doc["created_at"] = datetime.now(timezone.utc).isoformat()
     await db.appointments.insert_one(doc)
     doc.pop("_id", None)
+    # Fire-and-forget WhatsApp notification to owner (non-blocking, never breaks booking)
+    notify = await asyncio.to_thread(send_owner_whatsapp, doc)
+    doc["notification"] = notify
     return doc
 
 @api.get("/appointments/by-phone/{phone}")
