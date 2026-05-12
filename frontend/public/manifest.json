@@ -1,0 +1,13 @@
+{
+  "short_name": "Esther Pedrós",
+  "name": "Esther Pedrós · Salón de Belleza",
+  "icons": [
+    { "src": "logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#7f5539",
+  "background_color": "#faf6f1",
+  "orientation": "portrait",
+  "lang": "es"
+}
