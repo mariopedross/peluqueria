@@ -4,6 +4,8 @@ import "./App.css";
 import { Home, Sparkles, Flower2, CalendarDays, User, Phone, MessageCircle, Instagram, MapPin, Share2, ArrowRight, X, ChevronLeft, Clock, Star, LogOut, Shield } from "lucide-react";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const SALON_WA = "34622927352";
+const SALON_IG = "estherpedros.hs";
 
 // ---------- Helpers ----------
 const todayStr = () => new Date().toISOString().slice(0, 10);
@@ -17,18 +19,24 @@ const showToast = (msg) => {
   setTimeout(() => t.classList.remove("show"), 2600);
 };
 
-// ---------- Gallery seed (real, unique) ----------
+// ---------- Gallery (fotos reales del salón) ----------
+const FERIA1 = "https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/clmegcgq_feria1.jpg";
+const FERIA2 = "https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/evr7xvif_feria2.jpg";
+const TRENZA_FERIA = "https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/aog78sxu_trenza_feria.jpg";
+const RECOGIDO_TRENZADO = "https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/znbsub8b_recogido_trenzado.jpg";
+const BOB = "https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/m0umh14j_bob.jpg";
+
 const GALLERY = [
-  { url: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=700&q=80", cap: "Color completo en tonos avellana" },
-  { url: "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=700&q=80", cap: "Balayage degradado natural" },
+  { url: FERIA1, cap: "Recogido de feria con flor roja" },
+  { url: TRENZA_FERIA, cap: "Trenzas laterales pegadas estilo feria" },
+  { url: RECOGIDO_TRENZADO, cap: "Recogido bajo con trenza decorativa" },
+  { url: FERIA2, cap: "Trenzas africanas con accesorios" },
+  { url: BOB, cap: "Recogido pulido tipo bun elegante" },
+  { url: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=700&q=80", cap: "Color completo en tonos cálidos" },
+  { url: "https://images.unsplash.com/photo-1522337094846-8a818192de1f?auto=format&fit=crop&w=700&q=80", cap: "Alisado de keratina · antes/después" },
+  { url: "https://images.unsplash.com/photo-1594125311687-3b1b3eafa9f4?auto=format&fit=crop&w=700&q=80", cap: "Diseño de cejas con cera" },
+  { url: "https://images.unsplash.com/photo-1559599101-f09722fb4948?auto=format&fit=crop&w=700&q=80", cap: "Tratamiento de hidratación profunda" },
   { url: "https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=700&q=80", cap: "Corte midi con movimiento" },
-  { url: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80", cap: "Recogido de novia con velo" },
-  { url: "https://images.unsplash.com/photo-1522337094846-8a818192de1f?auto=format&fit=crop&w=700&q=80", cap: "Alisado de keratina antes/después" },
-  { url: "https://images.unsplash.com/photo-1595877244574-e90ce41ce089?auto=format&fit=crop&w=700&q=80", cap: "Peinado evento con ondas" },
-  { url: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=700&q=80", cap: "Manicura nude minimal" },
-  { url: "https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=700&q=80", cap: "Manicura semipermanente cobre" },
-  { url: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=700&q=80", cap: "Babylights luminosos" },
-  { url: "https://images.unsplash.com/photo-1559599101-f09722fb4948?auto=format&fit=crop&w=700&q=80", cap: "Tratamiento de hidratación" },
 ];
 
 // ============ MAIN APP ============
@@ -85,7 +93,7 @@ function Topbar() {
           <small>SALÓN · SEVILLA</small>
         </div>
       </div>
-      <a className="ic" href="https://wa.me/34600000000" aria-label="WhatsApp" data-testid="topbar-whatsapp"><MessageCircle size={18} /></a>
+      <a className="ic" href={`https://wa.me/${SALON_WA}`} aria-label="WhatsApp" data-testid="topbar-whatsapp"><MessageCircle size={18} /></a>
     </header>
   );
 }
@@ -95,7 +103,7 @@ function HomeView({ services, onPickService, onTab }) {
   return (
     <>
       <section className="hero">
-        <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=80" alt="Salón Esther Pedrós" />
+        <img src="https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/clmegcgq_feria1.jpg" alt="Esther Pedrós · trabajo de feria" />
         <div className="grad" />
         <div className="hero-inner">
           <div className="eyebrow">— Desde 2017 en Sevilla</div>
@@ -147,9 +155,9 @@ function HomeView({ services, onPickService, onTab }) {
 
       <section className="section" style={{ marginBottom: 30 }}>
         <div className="sub">Visítanos</div>
-        <div className="prof-row" onClick={() => window.open("https://wa.me/34600000000")} data-testid="contact-whatsapp"><div className="pi"><MessageCircle size={18} /></div><div className="pt">WhatsApp directo</div><div className="pa">›</div></div>
-        <div className="prof-row" onClick={() => window.open("https://instagram.com/estherpedros.hs")} data-testid="contact-instagram"><div className="pi"><Instagram size={18} /></div><div className="pt">@estherpedros.hs</div><div className="pa">›</div></div>
-        <div className="prof-row" onClick={() => window.open("tel:+34600000000")} data-testid="contact-phone"><div className="pi"><Phone size={18} /></div><div className="pt">Llamar al salón</div><div className="pa">›</div></div>
+        <div className="prof-row" onClick={() => window.open(`https://wa.me/${SALON_WA}`)} data-testid="contact-whatsapp"><div className="pi"><MessageCircle size={18} /></div><div className="pt">WhatsApp · +34 622 927 352</div><div className="pa">›</div></div>
+        <div className="prof-row" onClick={() => window.open(`https://instagram.com/${SALON_IG}`)} data-testid="contact-instagram"><div className="pi"><Instagram size={18} /></div><div className="pt">@{SALON_IG}</div><div className="pa">›</div></div>
+        <div className="prof-row" onClick={() => window.open(`tel:+${SALON_WA}`)} data-testid="contact-phone"><div className="pi"><Phone size={18} /></div><div className="pt">Llamar al salón</div><div className="pa">›</div></div>
         <div className="prof-row" onClick={() => window.open("https://maps.google.com/?q=Sevilla")} data-testid="contact-map"><div className="pi"><MapPin size={18} /></div><div className="pt">Cómo llegar · Sevilla</div><div className="pa">›</div></div>
       </section>
     </>
@@ -223,7 +231,18 @@ function BookingView({ services, preselect, onDone }) {
       });
       localStorage.setItem("user_phone", form.phone.trim());
       localStorage.setItem("user_name", form.name.trim());
-      showToast("✓ Cita reservada con éxito");
+      showToast("✓ Cita reservada · enviando confirmación por WhatsApp…");
+      // Abrir WhatsApp con confirmación prerellenada al salón
+      const msg = encodeURIComponent(
+        `Hola Esther! ✨ Acabo de reservar una cita:\n\n` +
+        `• Servicio: ${service.name}\n` +
+        `• Fecha: ${fmtDate(date)}\n` +
+        `• Hora: ${time}\n` +
+        `• Nombre: ${form.name.trim()}\n` +
+        `• Teléfono: ${form.phone.trim()}` +
+        (form.notes ? `\n• Notas: ${form.notes}` : "")
+      );
+      setTimeout(() => { window.open(`https://wa.me/${SALON_WA}?text=${msg}`, "_blank"); }, 600);
       onDone();
     } catch (e) {
       setErr(e?.response?.data?.detail || "Error reservando");
@@ -394,7 +413,7 @@ function ProfileView() {
         <div className="sub">Cuenta</div>
         <h3>Mi perfil</h3>
       </section>
-      <div style={{ margin: "10px 16px 20px", padding: 22, background: "linear-gradient(135deg,#3d2c1e,#7f5539)", borderRadius: 22, color: "#fff", textAlign: "center" }}>
+      <div style={{ margin: "10px 16px 20px", padding: 22, background: "linear-gradient(135deg,#f5b5c8,#d96e94)", borderRadius: 22, color: "#fff", textAlign: "center" }}>
         <img src="/logo.svg" alt="logo" style={{ width: 60, height: 60, margin: "0 auto 10px" }} />
         <div className="serif" style={{ fontSize: 24, fontStyle: "italic" }}>Club Esther Beauty</div>
         <div style={{ fontSize: 12, color: "#e9d5b9", marginTop: 4 }}>Acumula puntos con cada visita y consigue descuentos exclusivos</div>
@@ -404,8 +423,8 @@ function ProfileView() {
         <div style={{ fontSize: 11, marginTop: 6, color: "#e9d5b9" }}>300 puntos · Faltan 200 para un regalo</div>
       </div>
 
-      <div className="prof-row" onClick={() => window.open("https://wa.me/34600000000")} data-testid="prof-wa"><div className="pi"><MessageCircle size={18} /></div><div className="pt">WhatsApp directo</div><div className="pa">›</div></div>
-      <div className="prof-row" onClick={() => window.open("https://instagram.com/estherpedros.hs")} data-testid="prof-ig"><div className="pi"><Instagram size={18} /></div><div className="pt">Instagram</div><div className="pa">›</div></div>
+      <div className="prof-row" onClick={() => window.open(`https://wa.me/${SALON_WA}`)} data-testid="prof-wa"><div className="pi"><MessageCircle size={18} /></div><div className="pt">WhatsApp · +34 622 927 352</div><div className="pa">›</div></div>
+      <div className="prof-row" onClick={() => window.open(`https://instagram.com/${SALON_IG}`)} data-testid="prof-ig"><div className="pi"><Instagram size={18} /></div><div className="pt">@{SALON_IG}</div><div className="pa">›</div></div>
       <div className="prof-row" onClick={() => navigator.share ? navigator.share({ title: "Esther Pedrós Salón", url: window.location.href }) : showToast("Enlace copiado") }><div className="pi"><Share2 size={18} /></div><div className="pt">Compartir salón</div><div className="pa">›</div></div>
       <a className="muted-link" href="/admin">Acceso staff →</a>
     </>
@@ -442,7 +461,7 @@ function AdminApp() {
 }
 
 function AdminLogin({ onLogin }) {
-  const [email, setEmail] = useState("esther@salon.com");
+  const [email, setEmail] = useState("mariopedrosgarcia123@gmail.com");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);

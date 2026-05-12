@@ -64,6 +64,13 @@ def require_admin(authorization: Optional[str] = Header(None)):
     return True
 
 # ---------- Services (seeded) ----------
+# Fotos reales subidas por la dueña
+FERIA1 = "https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/clmegcgq_feria1.jpg"
+FERIA2 = "https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/evr7xvif_feria2.jpg"
+TRENZA_FERIA = "https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/aog78sxu_trenza_feria.jpg"
+RECOGIDO_TRENZADO = "https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/znbsub8b_recogido_trenzado.jpg"
+BOB = "https://customer-assets.emergentagent.com/job_mobile-booking-8/artifacts/m0umh14j_bob.jpg"
+
 SERVICES = [
     {"id": "corte-mujer", "name": "Corte Mujer", "category": "Cortes", "duration": 45, "price": 22,
      "description": "Corte personalizado a tu estilo y forma de rostro. Incluye lavado y peinado final con producto profesional.",
@@ -77,27 +84,30 @@ SERVICES = [
     {"id": "mechas-balayage", "name": "Mechas Balayage", "category": "Color", "duration": 180, "price": 85,
      "description": "Técnica francesa de iluminación natural a mano alzada. Acabado degradado y luminoso muy favorecedor.",
      "image": "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=800&q=80"},
-    {"id": "mechas-babylights", "name": "Babylights", "category": "Color", "duration": 200, "price": 95,
-     "description": "Mechas ultra finas que aportan luz como si fueras una niña al sol. Efecto sutil y muy natural.",
-     "image": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80"},
     {"id": "alisado-keratina", "name": "Alisado de Keratina", "category": "Tratamientos", "duration": 150, "price": 95,
      "description": "Tratamiento de keratina pura que alisa, repara e hidrata. Resultado liso y brillante hasta 4 meses.",
      "image": "https://images.unsplash.com/photo-1522337094846-8a818192de1f?auto=format&fit=crop&w=800&q=80"},
     {"id": "tratamiento-hidratacion", "name": "Hidratación Profunda", "category": "Tratamientos", "duration": 45, "price": 28,
      "description": "Mascarilla intensiva con aceites naturales para devolver brillo, suavidad y vida al cabello.",
      "image": "https://images.unsplash.com/photo-1559599101-f09722fb4948?auto=format&fit=crop&w=800&q=80"},
-    {"id": "peinado-evento", "name": "Peinado de Evento", "category": "Eventos", "duration": 60, "price": 35,
-     "description": "Recogido o semirecogido elegante para bodas, comuniones y eventos. Diseño exclusivo para ti.",
-     "image": "https://images.unsplash.com/photo-1595877244574-e90ce41ce089?auto=format&fit=crop&w=800&q=80"},
+    {"id": "recogido-feria", "name": "Recogido de Feria", "category": "Eventos", "duration": 60, "price": 35,
+     "description": "Recogido tradicional con flor y peineta, perfecto para la Feria de Abril. Acabado duradero todo el día.",
+     "image": FERIA1},
+    {"id": "trenzas-feria", "name": "Trenzas de Feria", "category": "Eventos", "duration": 75, "price": 40,
+     "description": "Trenzas pegadas estilo flamenca que aguantan toda la jornada. Diseño tradicional sevillano.",
+     "image": TRENZA_FERIA},
+    {"id": "trenzas-africanas", "name": "Trenzas Africanas", "category": "Trenzas", "duration": 120, "price": 50,
+     "description": "Trenzas pegadas al cuero cabelludo con o sin accesorios decorativos. Duran semanas.",
+     "image": FERIA2},
+    {"id": "recogido-evento", "name": "Recogido Elegante", "category": "Eventos", "duration": 60, "price": 38,
+     "description": "Recogido bajo con trenza para bodas, comuniones y eventos. Diseño exclusivo para ti.",
+     "image": RECOGIDO_TRENZADO},
+    {"id": "bun-pulido", "name": "Bun Pulido", "category": "Recogidos", "duration": 40, "price": 25,
+     "description": "Moño alto pulido tipo bailarina. Acabado impecable y duradero con producto fijador.",
+     "image": BOB},
     {"id": "novia-completo", "name": "Pack Novia", "category": "Eventos", "duration": 120, "price": 110,
      "description": "Prueba previa + peinado el día de tu boda. Diseño personalizado con accesorios incluidos.",
      "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"},
-    {"id": "manicura", "name": "Manicura Esmaltado", "category": "Uñas", "duration": 45, "price": 18,
-     "description": "Limado, cutículas y esmaltado de calidad. Larga duración y acabado impecable.",
-     "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=800&q=80"},
-    {"id": "manicura-semi", "name": "Manicura Semipermanente", "category": "Uñas", "duration": 60, "price": 25,
-     "description": "Esmaltado semipermanente que dura hasta 3 semanas sin desconcharse. Más de 80 colores disponibles.",
-     "image": "https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=800&q=80"},
     {"id": "depilacion-cejas", "name": "Diseño de Cejas", "category": "Estética", "duration": 30, "price": 12,
      "description": "Diseño y depilación con cera para enmarcar tu mirada según la simetría de tu rostro.",
      "image": "https://images.unsplash.com/photo-1594125311687-3b1b3eafa9f4?auto=format&fit=crop&w=800&q=80"},

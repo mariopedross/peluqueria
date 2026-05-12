@@ -1,16 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" width="220" height="220">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#b08968"/>
-      <stop offset="1" stop-color="#7f5539"/>
+    <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5b5c8"/>
+      <stop offset="1" stop-color="#d96e94"/>
+    </linearGradient>
+    <linearGradient id="pinkSoft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff5f8"/>
+      <stop offset="1" stop-color="#fde2ec"/>
     </linearGradient>
   </defs>
-  <circle cx="100" cy="100" r="96" fill="#faf6f1" stroke="url(#g)" stroke-width="2"/>
-  <g fill="none" stroke="url(#g)" stroke-width="1.8" stroke-linecap="round">
-    <path d="M58 132 Q100 80 142 132" />
-    <path d="M70 138 Q100 95 130 138" opacity="0.55"/>
+  <circle cx="110" cy="110" r="104" fill="url(#pinkSoft)" stroke="url(#pink)" stroke-width="2"/>
+  <!-- Flor estilizada -->
+  <g transform="translate(110 78)" fill="url(#pink)" opacity="0.95">
+    <ellipse cx="0" cy="-14" rx="7" ry="14"/>
+    <ellipse cx="0" cy="-14" rx="7" ry="14" transform="rotate(60)"/>
+    <ellipse cx="0" cy="-14" rx="7" ry="14" transform="rotate(120)"/>
+    <ellipse cx="0" cy="-14" rx="7" ry="14" transform="rotate(180)"/>
+    <ellipse cx="0" cy="-14" rx="7" ry="14" transform="rotate(240)"/>
+    <ellipse cx="0" cy="-14" rx="7" ry="14" transform="rotate(300)"/>
+    <circle r="6" fill="#fff5f8"/>
   </g>
-  <text x="100" y="98" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="44" font-style="italic" fill="#3d2c1e" letter-spacing="2">EP</text>
-  <text x="100" y="158" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#7f5539" letter-spacing="6">ESTHER · PEDRÓS</text>
-  <text x="100" y="172" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="7" fill="#b08968" letter-spacing="4">SALÓN DE BELLEZA</text>
+  <text x="110" y="142" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="26" font-style="italic" fill="#9b3357" font-weight="500">Esther Pedrós</text>
+  <text x="110" y="162" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#d96e94" letter-spacing="5">SALÓN DE BELLEZA</text>
+  <text x="110" y="178" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="7" fill="#c98ba2" letter-spacing="3">SEVILLA</text>
 </svg>
